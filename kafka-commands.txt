@@ -1,0 +1,14 @@
+POCETAK RADA:
+docker-compose up -d
+
+UPRAVLJANJE TOPICIMA:
+docker exec <container_name> kafka-topics --bootstrap-server <container_name>:9092
+	--list
+	--create --topic <topic_name>
+	--delete --topic <topic_name>
+
+SLANJE I PORUKA:
+docker exec --interactive --tty <container_name> kafka-console-producer --bootstrap-server <container_name>:9092 --topic <topic_name>
+
+PRIMANJE PORUKA:
+docker exec --interactive --tty <container_name> kafka-console-consumer --bootstrap-server <container_name>:9092 --topic <topic_name> --from-beginning
