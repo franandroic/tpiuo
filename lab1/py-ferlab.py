@@ -27,6 +27,7 @@ response = requests.get(reddit_url, headers=auth_headers)
 
 if response.ok:
     data = response.json()
-    print(data)
+    for post in data["data"]["children"]:
+        print(post["data"]["title"])
 else:
     print(response.status_code)
