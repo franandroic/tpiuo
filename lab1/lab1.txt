@@ -1,0 +1,5 @@
+docker build -t consumer-app-ferlab .\consumer
+docker run -p 8080:80 consumer-app-ferlab
+
+docker build -t producer-app-ferlab .\producer
+docker run -p 8080:80 producer-app-ferlab
