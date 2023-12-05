@@ -3,7 +3,7 @@ name: Docker Image CI - producer-ferlab
 on:
   push:
     paths:
-      - 'producer-ferlab.py'
+      - 'lab1/producer/producer-ferlab.py'
 
 jobs:
 
