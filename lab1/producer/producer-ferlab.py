@@ -39,7 +39,7 @@ async def run():
     event_data_batch = await producer.create_batch()
 
     #Getting the data from Reddit
-    reddit_url = "https://www.reddit.com/r/dankmemes/hot.json?t=all&limit=10"
+    reddit_url = "https://www.reddit.com/r/politics/hot.json?t=all&limit=10"
     
     response = requests.get(reddit_url, headers=auth_headers)
 
