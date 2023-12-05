@@ -3,7 +3,7 @@ name: Docker Image CI - consumer-ferlab
 on:
   push:
     paths:
-      - 'consumer.py'
+      - 'consumer-ferlab.py'
 
 jobs:
 
