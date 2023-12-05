@@ -1,0 +1,68 @@
+name: Docker Image CI - ferlab
+
+on:
+  push:
+    paths:
+      - 'producer.py'
+
+jobs:
+
+  # https://github.com/marketplace/actions/editorconfig-action
+  editorconfig:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+  
+      - name: Run EditorConfig Validation
+        uses: zbeekman/EditorConfig-Action@v1.1.0
+        with:
+          editorconfig_file: .editorconfig
+
+  # https://github.com/marketplace/actions/lint-action
+  linter:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: pip install black flake8
+
+      - name: Run linters
+        uses: wearrequired/lint-action@v2
+        with:
+          black: true
+          flake8: true
+
+  # https://github.com/marketplace/actions/azure-container-apps-build-and-deploy?version=v1
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and deploy Container App
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }}
+          acrName: crferlab
+          containerAppName: ca-producer-ferlab
+          resourceGroup: fervjestina
+          dockerfilePath: lab1/producer/Dockerfile
