@@ -11,7 +11,8 @@ consumer_group = "$default"
 storage_account_name = "saferlab"
 storage_container_name = "datacon-ferlab"
 storage_account_connection_str = "DefaultEndpointsProtocol=https;AccountName=saferlab;AccountKey=5Fivj1RJjf1Tt1MEGdbEwfv4yQ7U+UgRqiF2kzUrL+btlQRbF+X8UmP0qM0TyvO1fWUmQ4mjzvRC+ASt2vH9xQ==;EndpointSuffix=core.windows.net"
-service_client = DataLakeServiceClient(account_url=f"https://{storage_account_name}.dfs.core.windows.net", credential=storage_account_connection_str)
+#service_client = DataLakeServiceClient(account_url=f"https://{storage_account_name}.dfs.core.windows.net", credential=storage_account_connection_str)
+service_client = DataLakeServiceClient.from_connection_string(conn_str=storage_account_connection_str)
 file_system_client = service_client.get_file_system_client(file_system=storage_container_name)
 
 
@@ -26,6 +27,14 @@ def on_event_batch(partition_context, event_batch):
     directory_client_hour = directory_client_day.get_sub_directory_client(current_datetime.hour)
     directory_client_minute = directory_client_hour.get_sub_directory_client(current_datetime.minute)
 
+    for client in [directory_client_year,
+                   directory_client_month,
+                   directory_client_day,
+                   directory_client_hour,
+                   directory_client_minute]:
+        if not client.get_directory_properties().metadata:
+            client.create_directory()
+
     for event in event_batch:
 
         #print(event)
@@ -38,7 +47,7 @@ def on_event_batch(partition_context, event_batch):
 
         file_name += 1
 
-    partition_context.update_checkpoint()
+    #partition_context.update_checkpoint()
 
 def main():
 
