@@ -30,18 +30,15 @@ event_hub_name = "eh-ferlab"
 user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
 auth_headers = { "User-Agent": user_agent }
 
-async def run():
+def fetch_post_batch(event_data_batch, after):
 
-    #Creating a producer client and a batch
-    producer = EventHubProducerClient.from_connection_string(
-        conn_str=event_hub_connection_str, eventhub_name=event_hub_name
-    )
-    event_data_batch = await producer.create_batch()
+    #The Reddit URL containing the subreddit
+    reddit_url = "https://www.reddit.com/r/politics/top.json?t=all"
+    #Reddit API parameters
+    parameters = {"after": after, "limit": 10}
 
     #Getting the data from Reddit
-    reddit_url = "https://www.reddit.com/r/politics/hot.json?t=all&limit=10"
-    
-    response = requests.get(reddit_url, headers=auth_headers)
+    response = requests.get(reddit_url, headers=auth_headers, params=parameters)
 
     if response.ok:
         data = response.json()
@@ -50,11 +47,36 @@ async def run():
             print(post["data"]["title"])
             #Adding events to the batch
             event_data_batch.add(EventData(json.dumps(post).encode('utf-8')))
+
+        after = data["data"]["after"]
+        return after
+
     else:
         print(response.status_code)
-    
-    #Sending the batch to the event hub
-    await producer.send_batch(event_data_batch)
+        return None
+
+async def run():
+
+    #Defining the "after" flag
+    after_value = None
+
+    #Creating a producer client
+    producer = EventHubProducerClient.from_connection_string(
+        conn_str=event_hub_connection_str, eventhub_name=event_hub_name
+    )
+
+    for _ in range(10):
+        
+        #Creating a batch
+        event_data_batch = await producer.create_batch()
+
+        after_value = fetch_post_batch(event_data_batch, after=after_value)
+        if not after_value: break
+
+        #Sending the batch to the event hub
+        await producer.send_batch(event_data_batch)
+
+        await asyncio.sleep(10)
 
 def main():
 
