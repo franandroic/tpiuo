@@ -1,0 +1,14 @@
+{
+    "Name": "CosmosDB1",
+    "DataSourceType": "DocumentDB",
+    "DocumentDbProperties": {
+        "AccountId": "cdb-ferlab",
+        "AccountKey": "********",
+        "Database": "cdb-db-ferlab",
+        "ContainerName": "Container1",
+        "DocumentId": "",
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": "6890b2f7-0bfd-498b-ad57-42ed33f793b6.StreamAnalystics",
+    "ScriptType": "Output"
+}

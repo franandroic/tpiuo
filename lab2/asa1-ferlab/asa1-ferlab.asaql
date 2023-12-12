@@ -1,0 +1,24 @@
+
+-- Before you begin
+-- 1. Add input: right-click the Inputs folder and select "ASA: Add Input" to prepare your input data.
+-- 2. Add output: right-click the Outputs folder and select "ASA: Add Output" to choose your sink type.
+-- 3. Edit your query below and start testing your ASA job locally.
+-- For more information, please visit: https://docs.microsoft.com/en-us/azure/stream-analytics/quick-create-visual-studio-code
+
+SELECT
+	data.author AS author,
+	data.title AS title,
+	data.selftext AS content,
+	data.ups AS upvotes,
+	data.downs AS downvotes,
+	data.upvote_ratio AS upvote_ratio,
+	data.score AS score,
+	data.created_utc AS creation_date,
+	data.num_comments AS comments,
+	data.post_hint AS type
+INTO
+	CosmosDB1
+FROM
+	EventHub1
+WHERE
+	data.num_comments > 0

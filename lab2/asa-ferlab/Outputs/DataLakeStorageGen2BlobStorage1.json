@@ -1,0 +1,26 @@
+{
+    "Name": "DataLakeStorageGen2BlobStorage1",
+    "DataSourceType": "Blob Storage",
+    "BlobStorageProperties": {
+        "StorageAccounts": [
+            {
+                "AccountName": "csb1003200162537b0a",
+                "AccountKey": "********"
+            }
+        ],
+        "Container": "asacon-ferlab",
+        "PathPattern": "{date}/{time}",
+        "DateFormat": "yyyy/MM/dd",
+        "TimeFormat": "HH/mm",
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": "041276c8-22b4-4e83-a7a8-fb04400254b3.StreamAnalystics",
+    "Serialization": {
+        "Type": "Json",
+        "Encoding": "UTF8",
+        "Format": "LineSeparated"
+    },
+    "MinimumRows": null,
+    "MaximumTime": null,
+    "ScriptType": "Output"
+}
