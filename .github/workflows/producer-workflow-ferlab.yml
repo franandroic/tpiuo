@@ -62,7 +62,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}
-          acrName: crferlab
+          acrName: FAcrferlab
           containerAppName: ca-producer-ferlab
           resourceGroup: fervjestina
           dockerfilePath: lab1/producer/Dockerfile
