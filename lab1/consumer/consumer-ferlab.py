@@ -22,10 +22,12 @@ def on_event_batch(partition_context, event_batch):
     file_name = 0
 
     for event in event_batch:
-
+        
+        #Turning events into a json format...
         reddit_post = json.loads(event.body_as_str(encoding="UTF-8"))
         print(reddit_post["data"]["title"])
 
+        #Getting a datetime out of the json...
         creation_datetime = datetime.utcfromtimestamp(reddit_post["data"]["created_utc"])
         print(creation_datetime)
 
