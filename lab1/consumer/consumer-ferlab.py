@@ -2,6 +2,7 @@ from azure.eventhub import EventHubConsumerClient
 from azure.storage.filedatalake import DataLakeServiceClient
 from datetime import datetime
 from azure.core.exceptions import ResourceNotFoundError
+import json
 
 #Event Hub parameters
 event_hub_connecion_str = "Endpoint=sb://fa-ehns-ferlab.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EAEHb1bL9IGZzVR8B+dv/vOjGO48nrj0v+AEhA0XFhU="
@@ -18,18 +19,23 @@ file_system_client = service_client.get_file_system_client(file_system=storage_c
 
 def on_event_batch(partition_context, event_batch):
 
-    current_datetime = datetime.now()
     file_name = 0
-    
-    directory_client = file_system_client.get_directory_client(f"{str(current_datetime.year)}/{str(current_datetime.month)}/{str(current_datetime.day)}/{str(current_datetime.hour)}/{str(current_datetime.minute)}")
-
-    try:
-        print("Old directory: " + str(directory_client.get_directory_properties().name))
-    except ResourceNotFoundError:
-        directory_client.create_directory()
-        print("New directory: " + str(directory_client.get_directory_properties().name))
 
     for event in event_batch:
+
+        reddit_post = json.loads(event.body_as_str(encoding="UTF-8"))
+        print(reddit_post["data"]["title"])
+
+        creation_datetime = datetime.utcfromtimestamp(reddit_post["data"]["created_utc"])
+        print(creation_datetime)
+
+        directory_client = file_system_client.get_directory_client(f"{str(creation_datetime.year)}/{str(creation_datetime.month)}/{str(creation_datetime.day)}/{str(creation_datetime.hour)}/{str(creation_datetime.minute)}")
+
+        try:
+            print("Old directory: " + str(directory_client.get_directory_properties().name))
+        except ResourceNotFoundError:
+            directory_client.create_directory()
+            print("New directory: " + str(directory_client.get_directory_properties().name))
 
         file_client = directory_client.get_file_client(str(file_name))
         file_client.create_file()
