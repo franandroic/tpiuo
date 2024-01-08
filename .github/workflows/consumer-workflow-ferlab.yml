@@ -63,6 +63,6 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           acrName: FAcrferlab
-          containerAppName: ca-producer-ferlab
-          resourceGroup: fervjestina
+          containerAppName: fa-ca-consumer-ferlab
+          resourceGroup: TPIUO-labosi
           dockerfilePath: lab1/consumer/Dockerfile
