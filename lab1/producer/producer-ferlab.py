@@ -43,9 +43,9 @@ def fetch_post_batch(event_data_batch, after):
     if response.ok:
         data = response.json()
         for post in data["data"]["children"]:
-            #Printing out some kind of identifier...
+            #Printing out some kind of identifier
             print(post["data"]["title"])
-            #Adding events to the batch...
+            #Adding events to the batch
             event_data_batch.add(EventData(json.dumps(post).encode('utf-8')))
 
         after = data["data"]["after"]
