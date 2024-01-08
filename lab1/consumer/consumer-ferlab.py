@@ -4,14 +4,14 @@ from datetime import datetime
 from azure.core.exceptions import ResourceNotFoundError
 
 #Event Hub parameters
-event_hub_connecion_str = "Endpoint=sb://ns-ferlab.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=F8QqEeScZ34WCPOVyZsWdIvzr8BFT5rrA+AEhMrVW1o="
-event_hub_name = "eh-ferlab"
+event_hub_connecion_str = "Endpoint=sb://fa-ehns-ferlab.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EAEHb1bL9IGZzVR8B+dv/vOjGO48nrj0v+AEhA0XFhU="
+event_hub_name = "FA-eh-ferlab"
 consumer_group = "$default"
 
 #Data Lake parameters
-storage_account_name = "saferlab"
-storage_container_name = "datacon-ferlab"
-storage_account_connection_str = "DefaultEndpointsProtocol=https;AccountName=saferlab;AccountKey=5Fivj1RJjf1Tt1MEGdbEwfv4yQ7U+UgRqiF2kzUrL+btlQRbF+X8UmP0qM0TyvO1fWUmQ4mjzvRC+ASt2vH9xQ==;EndpointSuffix=core.windows.net"
+storage_account_name = "fasaferlabdatalake"
+storage_container_name = "fa-con-ferlab"
+storage_account_connection_str = "DefaultEndpointsProtocol=https;AccountName=fasaferlabdatalake;AccountKey=htB48MtOkNH5KpCv/CzEDSu5ReVEFjYE5OOIL1sYEGq+ypG/jc+yET4dyY1sZR15zbclfk4/nWPg+AStcY6DaQ==;EndpointSuffix=core.windows.net"
 service_client = DataLakeServiceClient.from_connection_string(conn_str=storage_account_connection_str)
 file_system_client = service_client.get_file_system_client(file_system=storage_container_name)
 

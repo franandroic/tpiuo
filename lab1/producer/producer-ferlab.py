@@ -23,8 +23,8 @@ access_token = auth_json["access_token"]
 '''
 
 #Defining event hub parameters
-event_hub_connection_str = "Endpoint=sb://ns-ferlab.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=F8QqEeScZ34WCPOVyZsWdIvzr8BFT5rrA+AEhMrVW1o="
-event_hub_name = "eh-ferlab"
+event_hub_connection_str = "Endpoint=sb://fa-ehns-ferlab.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EAEHb1bL9IGZzVR8B+dv/vOjGO48nrj0v+AEhA0XFhU="
+event_hub_name = "FA-eh-ferlab"
 
 #Defining the user agent spoof
 user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
