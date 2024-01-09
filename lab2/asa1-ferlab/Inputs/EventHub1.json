@@ -3,8 +3,8 @@
     "Type": "Data Stream",
     "DataSourceType": "Event Hub",
     "EventHubProperties": {
-        "ServiceBusNamespace": "ns-ferlab",
-        "EventHubName": "eh-ferlab",
+        "ServiceBusNamespace": "FA-ehns-ferlab",
+        "EventHubName": "fa-eh-ferlab",
         "SharedAccessPolicyName": "RootManageSharedAccessKey",
         "SharedAccessPolicyKey": "********",
         "ConsumerGroupName": "$Default",

@@ -2,10 +2,10 @@
     "Name": "CosmosDB1",
     "DataSourceType": "DocumentDB",
     "DocumentDbProperties": {
-        "AccountId": "cdb-ferlab",
+        "AccountId": "fa-cdba-ferlab",
         "AccountKey": "********",
-        "Database": "cdb-db-ferlab",
-        "ContainerName": "Container1",
+        "Database": "fa-cdb-ferlab",
+        "ContainerName": "fa-container-ferlab",
         "DocumentId": "",
         "AuthenticationMode": "ConnectionString"
     },
