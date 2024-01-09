@@ -62,7 +62,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}
-          acrName: FAcrferlab
+          acrName: facrferlab
           containerAppName: fa-ca-producer-ferlab
           resourceGroup: TPIUO-labosi
           dockerfilePath: lab1/producer/Dockerfile
